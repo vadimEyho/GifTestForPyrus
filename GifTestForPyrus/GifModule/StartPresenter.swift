@@ -20,10 +20,14 @@ class StartPresenter {
         self.router = router
     }
     
+    // MARK: - func
+    
     func getGifButtonTapped() {
         interactor.getGif()
     }
 }
+
+// MARK: - extension
 
 extension StartPresenter: StartPresenterProtocol {
     func viewDidLoad() {

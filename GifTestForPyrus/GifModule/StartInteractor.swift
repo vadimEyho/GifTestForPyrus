@@ -14,6 +14,10 @@ class StartInteractor: StartInteractorProtocol {
         self.api = api
     }
     
+    
+    
+    // MARK: - func
+    
     func getGif() {
         api.getGif { [weak self] data, error in
             guard let self = self else { return }
@@ -78,6 +82,8 @@ class StartInteractor: StartInteractorProtocol {
     }
 }
 
+// MARK: - extension
+
 extension UIImage {
     public class func gif(data: Data) -> UIImage? {
         guard let source = CGImageSourceCreateWithData(data as CFData, nil) else {
@@ -92,7 +98,7 @@ extension UIImage {
             if let cgImage = CGImageSourceCreateImageAtIndex(source, i, nil) {
                 let uiImage = UIImage(cgImage: cgImage)
                 
-                var duration: TimeInterval = 0.1
+                var duration: TimeInterval = 0.2
                 
                 if let properties = CGImageSourceCopyPropertiesAtIndex(source, i, nil) as? [String: Any],
                    let gifProperties = properties[kCGImagePropertyGIFDictionary as String] as? [String: Any],

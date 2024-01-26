@@ -9,23 +9,32 @@ protocol StartViewControllerProtocol: AnyObject {
 
 class StartViewController: UIViewController {
     
+    
+    // MARK: - var/let
+    
     var presenter: StartPresenterProtocol?
     var gifButton: UIButton = UIButton()
     var gifImageView: UIImageView = UIImageView()
+    var lableTitle = UILabel()
 
     var animatedImages: [UIImage] = []
     var currentFrame: Int = 0
+    
+    
+    // MARK: - lifeСycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
+    // MARK: - setupUI
+    
     func setupUI() {
         view.backgroundColor = .white
         
         gifButton.setTitle("Да или Нет?", for: .normal)
-        gifButton.backgroundColor = .blue
+        gifButton.backgroundColor = .black
         gifButton.layer.cornerRadius = 10  // Скругляем углы кнопки
         gifButton.addTarget(self, action: #selector(gifButtonTapped), for: .touchUpInside)
         gifButton.translatesAutoresizingMaskIntoConstraints = false
@@ -48,25 +57,40 @@ class StartViewController: UIViewController {
             gifImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             gifImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
         ])
+        
+        lableTitle.text = "Не можешь решиться? ЖМИ"
+        lableTitle.numberOfLines = 2
+        lableTitle.font = .systemFont(ofSize: 25, weight: .bold)
+        lableTitle.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(lableTitle)
+        
+        NSLayoutConstraint.activate([
+            lableTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            lableTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+           
+        ])
 
     }
     
+    // MARK: - ButtonTapped
 
     @objc func gifButtonTapped() {
         presenter?.getGifButtonTapped()
         print("Кнопка нажата")
 
-        UIView.animate(withDuration: 0.3,
+        UIView.animate(withDuration: 0.1,
                        animations: {
                            self.gifButton.transform = CGAffineTransform(scaleX: 1.1, y: 1.1)
                        },
                        completion: { _ in
-                           UIView.animate(withDuration: 0.3) {
+                           UIView.animate(withDuration: 0.1) {
                                self.gifButton.transform = .identity
                            }
                        })
     }
 }
+
+// MARK: - extension
 
 extension StartViewController: StartViewControllerProtocol {
     func displayGif(animatedImages: [UIImage]) {
