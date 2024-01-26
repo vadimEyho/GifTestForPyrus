@@ -30,9 +30,17 @@ class StartViewController: UIViewController {
     
     // MARK: - setupUI
     
-    func setupUI() {
+    
+    private func setupUI() {
         view.backgroundColor = .white
         
+        setupButton()
+        SetupGifImageView()
+        setupLableTitle()
+    }
+    
+    
+   private func setupButton(){
         gifButton.setTitle("Да или Нет?", for: .normal)
         gifButton.backgroundColor = .black
         gifButton.layer.cornerRadius = 10  // Скругляем углы кнопки
@@ -46,7 +54,9 @@ class StartViewController: UIViewController {
             gifButton.widthAnchor.constraint(equalToConstant: 200),
             gifButton.heightAnchor.constraint(equalToConstant: 50)
         ])
-
+    }
+    
+    private func SetupGifImageView(){
         gifImageView.contentMode = .scaleAspectFit
         gifImageView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(gifImageView)
@@ -58,6 +68,9 @@ class StartViewController: UIViewController {
             gifImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
         ])
         
+    }
+    
+    private func setupLableTitle(){
         lableTitle.text = "Не можешь решиться? ЖМИ"
         lableTitle.numberOfLines = 2
         lableTitle.font = .systemFont(ofSize: 25, weight: .bold)
@@ -69,9 +82,9 @@ class StartViewController: UIViewController {
             lableTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor)
            
         ])
-
     }
     
+   
     // MARK: - ButtonTapped
 
     @objc func gifButtonTapped() {
